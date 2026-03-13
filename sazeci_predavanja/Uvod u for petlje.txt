@@ -1,0 +1,106 @@
+Lecture: "Uvod u for petlje" (Intro to for Loops)
+7 March 2026 — 1h 56m — Edukacijska grupa Ada
+
+================================================================================
+TOPICS COVERED
+================================================================================
+
+1. C++ Syntax Warmup (pre-loop)
+   - Variable increment: a = a + 1
+   - ++ operator (pre vs post-increment): a++ vs ++a
+     Post-increment returns the old value; pre-increment returns the new value
+   - Compound assignment operators: +=, -=, *=, /=, %=
+
+2. for Loops
+   - Motivation: printing "hello" 100 times without copy-pasting
+   - Syntax: 3 components — init (int i = 1), condition (i <= 100), increment (i++)
+   - Controlling behavior: changing start value, step size (i += 2), and condition
+   - Modifying the loop variable inside the body (e.g., setting i = 5 mid-loop causes early exit)
+
+3. while Loops
+   - Motivation: when iteration count is unknown in advance
+   - Syntax: while (condition) { ... }
+   - When to use for vs while: for when count is known, while when stopping condition is dynamic
+
+4. Accumulator Pattern
+   - Running sum (init at 0) and running product (init at 1, not 0)
+
+================================================================================
+EXERCISES AND PRACTICAL EXAMPLES
+================================================================================
+
+Warmup 1  | Trace a++/++a in an expression, predict output
+          | Key concept: Pre vs post-increment
+
+Warmup 2  | Trace a sequence of +=, *=, -=, %= ops (answer: 27)
+          | Key concept: Compound assignment
+
+Warmup 3  | Trace a loop: i starts at 1, multiplied by 2 while i < 32
+          | Key concept: Loop tracing (output: 1, 2, 4, 8, 16)
+
+Task 1    | Print all even numbers from 2 to 20
+          | Key concept: for loop, two approaches (mod vs step)
+
+Task 2    | Print squares of 1 to n (user input)
+          | Key concept: for loop + cin
+
+Task 3    | Sum of squares from 1 to n
+          | Key concept: Accumulator pattern (sum)
+
+Task 4    | Factorial n!
+          | Key concept: Accumulator pattern (product, init at 1)
+
+Task 5    | Multiplication table for a given number
+          | Key concept: Formatted output inside loop
+
+Task 6    | Triangle of asterisks (nested loops)
+          | Key concept: Nested for loops
+
+Task 7    | Count how many times n is divisible by 2
+          | Key concept: while loop motivation
+
+Bonus     | Collatz conjecture — count steps until n reaches 1
+          | Key concept: while loop, if/else, accumulator
+
+Homework: 2 tasks assigned at the end (not detailed in transcript).
+
+================================================================================
+STUDENT ENGAGEMENT
+================================================================================
+
+Interaction style:
+The instructor used a consistent technique — "write your answer in the chat but
+don't send it until I say so" — giving all students time to think independently
+before seeing others' responses. This worked well.
+
+Student responsiveness: High. The majority answered the prediction quizzes
+correctly, submitted working code, and asked relevant questions. The instructor
+frequently praised correct answers ("svaka cast").
+
+Notable interactions:
+- Hamza Kalajdzija — asked about keyboard input mid-session, needed ~6 minutes
+  of one-on-one debugging at the end for a Collatz bug (wasn't storing the
+  result of division back to n: missing n = n / 2)
+- Kosta Car — proactively asked about using a while loop before the instructor
+  introduced it
+- Alan Kayosh — solved the nested loop task before the instructor finished
+  explaining; also asked about using strings for asterisk output
+- Vukasin Vuk, Nikolaj Djekic, Sergej Smital, Danilo Bozic — submitted code
+  that was reviewed live
+
+Time breakdown (approx.):
+  Attendance check                  ~5 min
+  Interactive quizzes               ~12 min
+  Student code review & feedback    ~25-30 min
+  One-on-one debugging (Hamza)      ~6 min
+  Break                             ~10 min
+  Total student interaction         ~45-50 min out of 116 min
+
+Instructor style:
+Patient, encouraging, live-coded everything including intentional mistakes, used
+Socratic questioning, and explicitly set expectations that "programming gets
+harder from here."
+
+Notable disruption:
+The instructor's internet dropped for ~4 minutes around the 1:22 mark; students
+waited and resumed without issue.

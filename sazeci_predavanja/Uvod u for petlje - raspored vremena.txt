@@ -1,0 +1,58 @@
+Lecture: "Uvod u for petlje" (Intro to for Loops)
+7 March 2026 — 1h 56m — Edukacijska grupa Ada
+
+================================================================================
+EXERCISE TIME BREAKDOWN
+================================================================================
+
+Warmup 1  | Trace a++/++a in expression
+          | Start: 0:17  |  End: 5:21  |  Duration: ~5 min
+
+Warmup 2  | Trace compound assignments (+=, *=, -=, %=), answer: 27
+          | Start: 5:21  |  End: 15:59  |  Duration: ~11 min
+
+For loop  | Syntax intro and live demo (not a student exercise)
+lecture   | Start: 15:59  |  End: 21:43  |  Duration: ~6 min
+
+Warmup 3  | Trace loop: i starts at 1, i *= 2 while i < 32
+          | Start: 21:43  |  End: 29:02  |  Duration: ~7 min
+
+Task 1    | Print all even numbers from 2 to 20
+          | Start: ~27:30  |  End: 29:02  |  Duration: ~1-2 min
+          | Note: introduced at end of Warmup 3 block
+
+Task 2    | Print squares of 1 to n
+          | Start: 29:02  |  End: ~42:00  |  Duration: ~13 min
+          | Note: Tasks 2 and 3 share a single uninterrupted instructor block
+
+Task 3    | Sum of squares from 1 to n
+          | Start: ~42:00  |  End: 46:49  |  Duration: ~5 min
+
+Task 4    | Factorial n!
+          | Start: 42:59  |  End: 46:49  |  Duration: ~4 min
+
+Task 5    | Multiplication table for a given number
+          | Start: 46:49  |  End: ~54:30  |  Duration: ~8 min
+
+— Break — | Start: ~54:30  |  End: 1:10:05  |  Duration: ~15 min
+
+Task 5    | Review + Task 6 intro (nested loops — asterisk triangle)
++ Task 6  | Start: 1:10:06  |  End: 1:28:51  |  Duration: ~19 min
+          | Note: longest single block; Task 5 reviewed briefly before Task 6
+
+Task 7    | Count how many times n is divisible by 2 (while loop intro)
+          | Start: 1:28:51  |  End: 1:42:31  |  Duration: ~14 min
+
+Bonus     | Collatz conjecture — count steps until n reaches 1
+          | Start: 1:42:31  |  End: 1:55:49  |  Duration: ~13 min
+          | Note: mostly one-on-one debugging with student (Hamza)
+
+================================================================================
+NOTES ON PRECISION
+================================================================================
+
+- Timestamps marked with ~ are estimated; the instructor announced the break
+  mid-turn with no new timestamp header.
+- The 29:02 block is a single long uninterrupted instructor turn. Tasks 1
+  review, Task 2 intro/walkthrough, and Task 3 intro all occur within it, so
+  internal boundaries are inferred from content, not timestamps.

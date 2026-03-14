@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slike u Računaru</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff; --bg2: #f5f4f0; --bg3: #eeedea;
+    --text: #1a1a18; --text2: #6b6b66; --text3: #9b9b95;
+    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
+    --r-bg: #fff0f0; --r-text: #b03030; --r-border: rgba(180,50,50,0.3);
+    --g-bg: #f0faf0; --g-text: #2a7a2a; --g-border: rgba(40,130,40,0.3);
+    --b-bg: #eef4ff; --b-text: #2050b0; --b-border: rgba(40,80,180,0.3);
+    --radius: 8px; --radius-lg: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c; --bg2: #272724; --bg3: #2a2a28;
+      --text: #e8e6de; --text2: #9b9b95; --text3: #6b6b66;
+      --border: rgba(255,255,255,0.12); --border2: rgba(255,255,255,0.22);
+      --r-bg: #2a1515; --r-text: #e06060; --r-border: rgba(220,80,80,0.3);
+      --g-bg: #122012; --g-text: #60c060; --g-border: rgba(60,180,60,0.3);
+      --b-bg: #101828; --b-text: #5090e0; --b-border: rgba(60,120,220,0.3);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg3);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--bg);
+    border-radius: 16px;
+    border: 0.5px solid var(--border);
+    padding: 2rem;
+  }
+
+  h1 { font-size: 20px; font-weight: 500; margin-bottom: .25rem; }
+  .sub { font-size: 13px; color: var(--text2); margin-bottom: 1.5rem; }
+
+  .px-btn {
+    padding: 6px 14px; font-size: 13px;
+    border: 0.5px solid var(--border2);
+    background: transparent; color: var(--text2);
+    cursor: pointer; font-family: inherit;
+    transition: background .12s, color .12s;
+  }
+  .px-btn:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .px-btn:last-child  { border-radius: 0 var(--radius) var(--radius) 0; border-left: none; }
+  .px-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .solo { border-radius: var(--radius) !important; border-left: 0.5px solid var(--border2) !important; }
+
+  .px { border-radius: 3px; cursor: pointer; transition: transform .08s; flex-shrink: 0; }
+  .px.sel { transform: scale(1.18); outline: 2.5px solid var(--text); outline-offset: 1px; z-index: 10; position: relative; }
+
+  .lbl { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: .05em; }
+  .big { font-size: 28px; font-weight: 500; line-height: 1; }
+  .ch-num { font-size: 22px; font-weight: 500; font-variant-numeric: tabular-nums; min-width: 40px; text-align: center; }
+
+  .inspector {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    background: var(--bg);
+  }
+  .code-box {
+    font-size: 12px; color: var(--text2);
+    font-family: "Courier New", monospace;
+    background: var(--bg2);
+    border-radius: var(--radius);
+    padding: 6px 10px; margin-bottom: 16px;
+  }
+
+  .drag-bar {
+    position: relative; height: 16px; border-radius: 8px;
+    cursor: ew-resize; user-select: none; touch-action: none;
+    overflow: hidden;
+  }
+  .drag-fill { height: 100%; border-radius: 8px; pointer-events: none; }
+  .drag-marker {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    width: 5px; height: 22px; border-radius: 3px;
+    background: rgba(255,255,255,0.85);
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.35);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Slike u Računaru</h1>
+  <p class="sub">Kliknite na bilo koji piksel da ga odaberete, zatim povucite trake da promijenite njegove vrijednosti.</p>
+
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;flex-wrap:wrap">
+    <span style="font-size:13px;color:var(--text2)">Verzija:</span>
+    <div style="display:flex">
+      <button class="px-btn active" id="btn-gray" onclick="setMode('gray')">Sliva sliika — 1 kanal</button>
+      <button class="px-btn" id="btn-color" onclick="setMode('color')">Boja — 3 kanala (RGB)</button>
+    </div>
+    <button class="px-btn solo" style="margin-left:auto" onclick="resetGrid()">Vrati na početnu</button>
+  </div>
+
+  <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap">
+
+    <!-- Mreža piksela -->
+    <div>
+      <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;margin-left:20px">
+        <div id="col-hdr" style="display:grid;grid-template-columns:repeat(8,44px);gap:2px"></div>
+      </div>
+      <div style="display:flex;gap:4px;align-items:flex-start">
+        <div id="row-hdr" style="display:grid;grid-template-rows:repeat(8,44px);gap:2px;align-items:center;width:18px"></div>
+        <div id="px-grid" style="display:grid;grid-template-columns:repeat(8,44px);gap:2px"></div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin-top:5px;margin-left:22px">(računari broje od 0)</div>
+    </div>
+
+    <!-- Inspektor -->
+    <div style="flex:1;min-width:220px">
+      <div class="inspector">
+
+        <div id="px-empty" style="font-size:13px;color:var(--text2);text-align:center;padding:1.5rem 0">
+          Kliknite na bilo koji piksel<br>da promijenite njegove vrijednosti
+        </div>
+
+        <div id="px-data" style="display:none">
+
+          <div style="display:flex;gap:16px;margin-bottom:14px;align-items:flex-start">
+            <div>
+              <div class="lbl" style="margin-bottom:3px">red</div>
+              <div class="big" id="d-row">—</div>
+            </div>
+            <div>
+              <div class="lbl" style="margin-bottom:3px">kolona</div>
+              <div class="big" id="d-col">—</div>
+            </div>
+            <div style="margin-left:auto">
+              <div class="lbl" style="margin-bottom:3px">piksel</div>
+              <div id="d-swatch" style="width:44px;height:44px;border-radius:6px;border:0.5px solid var(--border2);transition:background .08s"></div>
+            </div>
+          </div>
+
+          <div class="code-box" id="d-code"></div>
+
+          <!-- SLIVA SLIIKA -->
+          <div id="d-gray-sec">
+            <div class="lbl" style="margin-bottom:6px">vrijednost svjetline</div>
+            <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:12px">
+              <div class="big" id="d-gv">—</div>
+              <div style="font-size:12px;color:var(--text3)">/ 255</div>
+            </div>
+            <div class="drag-bar" id="bar-gray" style="margin-bottom:6px">
+              <div class="drag-fill" style="width:100%;background:linear-gradient(to right,#000,#fff)"></div>
+              <div class="drag-marker" id="marker-gray" style="left:0%"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3)">
+              <span>0 = crno</span><span>255 = bijelo</span>
+            </div>
+          </div>
+
+          <!-- RGB -->
+          <div id="d-rgb-sec" style="display:none">
+            <div class="lbl" style="margin-bottom:10px">vrijednosti kanala (svaki 0–255)</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px">
+              <div style="text-align:center;background:var(--r-bg);border-radius:var(--radius);padding:8px 4px">
+                <div style="font-size:9px;color:var(--r-text);margin-bottom:3px;font-weight:500;letter-spacing:.04em">CRVENA</div>
+                <div class="ch-num" style="color:var(--r-text)" id="d-r">—</div>
+              </div>
+              <div style="text-align:center;background:var(--g-bg);border-radius:var(--radius);padding:8px 4px">
+                <div style="font-size:9px;color:var(--g-text);margin-bottom:3px;font-weight:500;letter-spacing:.04em">ZELENA</div>
+                <div class="ch-num" style="color:var(--g-text)" id="d-g">—</div>
+              </div>
+              <div style="text-align:center;background:var(--b-bg);border-radius:var(--radius);padding:8px 4px">
+                <div style="font-size:9px;color:var(--b-text);margin-bottom:3px;font-weight:500;letter-spacing:.04em">PLAVA</div>
+                <div class="ch-num" style="color:var(--b-text)" id="d-b">—</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div class="drag-bar" id="bar-r"><div class="drag-fill" id="fill-r" style="background:var(--r-text)"></div></div>
+              <div class="drag-bar" id="bar-g"><div class="drag-fill" id="fill-g" style="background:var(--g-text)"></div></div>
+              <div class="drag-bar" id="bar-b"><div class="drag-fill" id="fill-b" style="background:var(--b-text)"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Prikaz kanala -->
+      <div id="ch-sec" style="display:none;margin-top:12px" class="inspector">
+        <div style="font-size:12px;font-weight:500;margin-bottom:4px">Prikaz kanala</div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:10px">Svjetlije = veći broj u tom kanalu</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <div><div style="font-size:10px;color:var(--text2);text-align:center;margin-bottom:4px">puna boja</div><div id="ch-full" style="display:grid;grid-template-columns:repeat(8,16px);gap:1px"></div></div>
+          <div><div style="font-size:10px;color:var(--r-text);text-align:center;margin-bottom:4px">samo crvena</div><div id="ch-r" style="display:grid;grid-template-columns:repeat(8,16px);gap:1px"></div></div>
+          <div><div style="font-size:10px;color:var(--g-text);text-align:center;margin-bottom:4px">samo zelena</div><div id="ch-g" style="display:grid;grid-template-columns:repeat(8,16px);gap:1px"></div></div>
+          <div><div style="font-size:10px;color:var(--b-text);text-align:center;margin-bottom:4px">samo plava</div><div id="ch-b" style="display:grid;grid-template-columns:repeat(8,16px);gap:1px"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const defaultGray = [
+  [ 30, 30, 30,200,200, 30, 30, 30],
+  [ 30, 30,200,200,200,200, 30, 30],
+  [ 30,200, 20,200,200, 20,200, 30],
+  [ 30,200,200,200,200,200,200, 30],
+  [ 30,200, 50,200,200, 50,200, 30],
+  [ 30, 30,200, 50, 50,200, 30, 30],
+  [ 30, 30,200,200,200,200, 30, 30],
+  [ 30, 30, 30,200,200, 30, 30, 30],
+];
+const defaultColor = [
+  [[100,180,230],[110,185,235],[100,180,230],[100,180,230],[100,180,230],[100,180,230],[110,185,235],[100,180,230]],
+  [[130,170,220],[130,170,220],[130,170,220],[130,170,220],[130,170,220],[130,170,220],[130,170,220],[130,170,220]],
+  [[200,150, 90],[200,150, 90],[240,195, 50],[245,220, 70],[245,220, 70],[240,195, 50],[200,150, 90],[200,150, 90]],
+  [[225,115, 45],[225,115, 45],[248,175, 25],[255,225, 55],[255,225, 55],[248,175, 25],[225,115, 45],[225,115, 45]],
+  [[195, 90, 35],[195, 90, 35],[200,100, 40],[200,100, 40],[200,100, 40],[200,100, 40],[195, 90, 35],[195, 90, 35]],
+  [[ 80,150, 60],[ 95,158, 68],[ 80,150, 60],[ 68,128, 48],[ 68,128, 48],[ 80,150, 60],[ 95,158, 68],[ 80,150, 60]],
+  [[ 60,120, 40],[ 60,120, 40],[ 70,130, 50],[ 82,142, 62],[ 82,142, 62],[ 70,130, 50],[ 60,120, 40],[ 60,120, 40]],
+  [[ 40, 88, 28],[ 50, 98, 33],[ 40, 88, 28],[ 40, 88, 28],[ 40, 88, 28],[ 40, 88, 28],[ 50, 98, 33],[ 40, 88, 28]],
+];
+
+let mode = 'gray';
+let grayGrid  = defaultGray.map(r => [...r]);
+let colorGrid = defaultColor.map(r => r.map(c => [...c]));
+let selR = null, selC = null;
+let activeDrag = null, activeDragEl = null;
+const BAR_TO_CH = {'bar-gray':'gray','bar-r':'r','bar-g':'g','bar-b':'b'};
+
+function $id(id) { return document.getElementById(id); }
+
+function valFromEvent(e, el) {
+  const rect = el.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  return Math.max(0, Math.min(255, Math.round((clientX - rect.left) / rect.width * 255)));
+}
+
+function setupBar(barId) {
+  const el = $id(barId), ch = BAR_TO_CH[barId];
+  function start(e) {
+    if (selR === null) return;
+    activeDrag = ch; activeDragEl = el;
+    dispatch(ch, valFromEvent(e, el));
+    e.preventDefault();
+  }
+  el.addEventListener('mousedown', start);
+  el.addEventListener('touchstart', start, { passive: false });
+}
+
+document.addEventListener('mousemove', e => { if (!activeDrag || !activeDragEl) return; dispatch(activeDrag, valFromEvent(e, activeDragEl)); });
+document.addEventListener('mouseup', () => { activeDrag = null; activeDragEl = null; });
+document.addEventListener('touchmove', e => { if (!activeDrag || !activeDragEl) return; dispatch(activeDrag, valFromEvent(e, activeDragEl)); }, { passive: false });
+document.addEventListener('touchend', () => { activeDrag = null; activeDragEl = null; });
+
+function dispatch(ch, v) { if (ch === 'gray') applyGray(v); else applyRGB(ch, v); }
+setupBar('bar-gray'); setupBar('bar-r'); setupBar('bar-g'); setupBar('bar-b');
+
+function setMode(m) {
+  mode = m;
+  $id('btn-gray').classList.toggle('active', m === 'gray');
+  $id('btn-color').classList.toggle('active', m === 'color');
+  $id('d-gray-sec').style.display = m === 'gray'  ? '' : 'none';
+  $id('d-rgb-sec').style.display  = m === 'color' ? '' : 'none';
+  $id('ch-sec').style.display     = m === 'color' ? '' : 'none';
+  selR = selC = null;
+  $id('px-empty').style.display = '';
+  $id('px-data').style.display  = 'none';
+  renderGrid();
+  if (m === 'color') renderChannels();
+}
+
+function resetGrid() {
+  grayGrid  = defaultGray.map(r => [...r]);
+  colorGrid = defaultColor.map(r => r.map(c => [...c]));
+  selR = selC = null;
+  $id('px-empty').style.display = '';
+  $id('px-data').style.display  = 'none';
+  renderGrid();
+  if (mode === 'color') renderChannels();
+}
+
+function renderGrid() {
+  const grid = $id('px-grid'), colHdr = $id('col-hdr'), rowHdr = $id('row-hdr');
+  grid.innerHTML = colHdr.innerHTML = rowHdr.innerHTML = '';
+  for (let c = 0; c < 8; c++) {
+    const d = document.createElement('div');
+    d.style.cssText = 'text-align:center;font-size:10px;color:var(--text3);font-weight:500';
+    d.textContent = c; colHdr.appendChild(d);
+  }
+  for (let r = 0; r < 8; r++) {
+    const d = document.createElement('div');
+    d.style.cssText = 'font-size:10px;color:var(--text3);font-weight:500;display:flex;align-items:center;justify-content:flex-end;padding-right:3px';
+    d.textContent = r; rowHdr.appendChild(d);
+  }
+  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+    const cell = document.createElement('div');
+    cell.className = 'px' + (selR === r && selC === c ? ' sel' : '');
+    cell.style.width = cell.style.height = '44px';
+    cell.style.background = bgFor(r, c);
+    cell.addEventListener('click', () => selectPixel(r, c));
+    grid.appendChild(cell);
+  }
+}
+
+function bgFor(r, c) {
+  if (mode === 'gray') { const v = grayGrid[r][c]; return `rgb(${v},${v},${v})`; }
+  const [rv, gv, bv] = colorGrid[r][c]; return `rgb(${rv},${gv},${bv})`;
+}
+
+function selectPixel(r, c) {
+  selR = r; selC = c; renderGrid();
+  $id('px-empty').style.display = 'none';
+  $id('px-data').style.display  = '';
+  $id('d-row').textContent = r;
+  $id('d-col').textContent = c;
+  if (mode === 'gray') { refreshGrayUI(grayGrid[r][c]); }
+  else { const [rv, gv, bv] = colorGrid[r][c]; refreshRGBUI(rv, gv, bv); }
+}
+
+function applyGray(v) {
+  if (selR === null) return;
+  grayGrid[selR][selC] = v;
+  refreshGrayUI(v);
+  $id('px-grid').children[selR * 8 + selC].style.background = `rgb(${v},${v},${v})`;
+}
+
+function applyRGB(ch, v) {
+  if (selR === null) return;
+  let [rv, gv, bv] = colorGrid[selR][selC];
+  if (ch === 'r') rv = v; if (ch === 'g') gv = v; if (ch === 'b') bv = v;
+  colorGrid[selR][selC] = [rv, gv, bv];
+  refreshRGBUI(rv, gv, bv);
+  $id('px-grid').children[selR * 8 + selC].style.background = `rgb(${rv},${gv},${bv})`;
+  renderChannels();
+}
+
+function refreshGrayUI(v) {
+  $id('d-gv').textContent = v;
+  $id('marker-gray').style.left = (v / 255 * 100) + '%';
+  $id('d-swatch').style.background = `rgb(${v},${v},${v})`;
+  $id('d-code').textContent = `slika[${selR}][${selC}] = ${v}`;
+}
+
+function refreshRGBUI(rv, gv, bv) {
+  $id('d-r').textContent = rv; $id('d-g').textContent = gv; $id('d-b').textContent = bv;
+  $id('d-swatch').style.background = `rgb(${rv},${gv},${bv})`;
+  $id('fill-r').style.width = Math.round(rv / 255 * 100) + '%';
+  $id('fill-g').style.width = Math.round(gv / 255 * 100) + '%';
+  $id('fill-b').style.width = Math.round(bv / 255 * 100) + '%';
+  $id('d-code').textContent = `slika[${selR}][${selC}] = (${rv}, ${gv}, ${bv})`;
+}
+
+function renderChannels() {
+  const fns = {
+    'ch-full': ([rv,gv,bv]) => `rgb(${rv},${gv},${bv})`,
+    'ch-r':    ([rv])        => `rgb(${rv},0,0)`,
+    'ch-g':    ([,gv])       => `rgb(0,${gv},0)`,
+    'ch-b':    ([,,bv])      => `rgb(0,0,${bv})`,
+  };
+  for (const [id, fn] of Object.entries(fns)) {
+    const el = $id(id); el.innerHTML = '';
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+      const d = document.createElement('div');
+      d.style.cssText = 'width:16px;height:16px;border-radius:2px';
+      d.style.background = fn(colorGrid[r][c]);
+      el.appendChild(d);
+    }
+  }
+}
+
+renderGrid();
+$id('d-gray-sec').style.display = '';
+$id('d-rgb-sec').style.display  = 'none';
+$id('ch-sec').style.display     = 'none';
+</script>
+</body>
+</html>

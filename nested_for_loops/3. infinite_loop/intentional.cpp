@@ -13,10 +13,13 @@ int main() {
 
 
 
+    
+
+
     //MARK: aplikacija
-    """
+    /*
     Primjer u aplikaciji
-    """
+    */
     while (true) {
         Event e = get_next_event();
 
@@ -55,10 +58,9 @@ int main() {
 
 
     // MARK: igrica
-    """
+    /*
     Primjer u igrici
-    """
-
+    */
     while (game_running) {
         process_input();
         update_game_state();
@@ -118,7 +120,7 @@ int main() {
 
 
 
-    
+
 
 
 

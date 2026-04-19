@@ -1,0 +1,106 @@
+\ProvidesPackage{minimalist}[2025/01/01 Minimalist sans-serif handout style]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{microtype}
+\RequirePackage[margin=2.5cm]{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{parskip}
+\RequirePackage{booktabs}
+\RequirePackage{mdframed}
+\RequirePackage{listings}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+
+% Sans-serif body font (helvet = Helvetica clone, always in texlive)
+\RequirePackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Monospace font for code (inconsolata — clean and narrow)
+% Falls back gracefully to Courier if not installed
+\IfFileExists{inconsolata.sty}{
+    \RequirePackage{inconsolata}
+}{}
+
+% ── Colors ────────────────────────────────────────────────────────────────
+\definecolor{accent}{HTML}{2E7D32}     % tamno zelena
+\definecolor{codebg}{HTML}{F5F5F5}
+\definecolor{taskborder}{HTML}{2E7D32}
+\definecolor{noteborder}{HTML}{F57C00}
+
+% ── Section headings ──────────────────────────────────────────────────────
+\titleformat{\section}
+    {\large\bfseries}
+    {}
+    {0em}
+    {\color{accent}}
+    [\color{accent!40}\titlerule]
+\titlespacing{\section}{0pt}{1.8ex}{0.8ex}
+
+\titleformat{\subsection}
+    {\normalsize\bfseries\color{accent!70!black}}
+    {}
+    {0em}
+    {}
+
+% ── Header / footer ───────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{gray}\textit{\leftmark}}
+\rhead{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── mdframed box styles ───────────────────────────────────────────────────
+\mdfdefinestyle{zadatakstyle}{
+    linecolor=taskborder,
+    linewidth=1.5pt,
+    backgroundcolor=accent!5,
+    leftmargin=0pt, rightmargin=0pt,
+    innerleftmargin=10pt, innerrightmargin=10pt,
+    innertopmargin=8pt, innerbottommargin=8pt,
+    skipabove=8pt, skipbelow=4pt,
+}
+
+\mdfdefinestyle{napomenastyle}{
+    linecolor=noteborder,
+    linewidth=1.2pt,
+    backgroundcolor=orange!6,
+    leftline=true, topline=false, bottomline=false, rightline=false,
+    innerleftmargin=10pt, innerrightmargin=8pt,
+    innertopmargin=6pt, innerbottommargin=6pt,
+    skipabove=6pt, skipbelow=4pt,
+}
+
+\newenvironment{zadatak}[1]{%
+    \begin{mdframed}[style=zadatakstyle]
+    \textbf{\color{accent}Zadatak #1.}\quad\ignorespaces
+}{%
+    \end{mdframed}
+}
+
+\newenvironment{napomena}{%
+    \begin{mdframed}[style=napomenastyle]
+    \textbf{\color{noteborder}Napomena.}\quad\ignorespaces
+}{%
+    \end{mdframed}
+}
+
+% ── Code listings ─────────────────────────────────────────────────────────
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{accent},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    backgroundcolor=\color{codebg},
+    frame=tb,
+    framerule=0.4pt,
+    rulecolor=\color{gray!40},
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray!60},
+    numbersep=8pt,
+    xleftmargin=20pt,
+    xrightmargin=4pt,
+}

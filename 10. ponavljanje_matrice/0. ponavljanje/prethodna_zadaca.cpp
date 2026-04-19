@@ -6,7 +6,6 @@ int main() {
     int n;
     cin >> n;
     
-    #define RJESENJE1
     #ifdef RJESENJE1
 
 
@@ -44,14 +43,14 @@ int main() {
     #endif
 
 
+    #define RJESENJE2
     #ifdef RJESENJE2
 
 
 
 
 
-
-
+    
 
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {

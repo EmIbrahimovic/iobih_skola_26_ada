@@ -64,6 +64,30 @@ int main() {
 
     // =================================================================================
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     cout << "Unesi dimenzije 1D niza (1 broj, n):" << endl;
     cin >> n;
     cout << "Unesi  1D niz:" << endl;
@@ -84,9 +108,65 @@ int main() {
     // Primjer validnih unosa - format nije bitan
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     niz_2d.clear();
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     cout << "Unesi dimenzije 2D niza (2 broja, n i m):" << endl;

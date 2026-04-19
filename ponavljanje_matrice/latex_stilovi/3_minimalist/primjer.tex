@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{minimalist}
+
+\title{\textbf{Simulacija Šumskog Požara}\\[4pt]
+       \large Matrični model širenja vatre}
+\author{iobih škola — Radionica}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\markboth{Simulacija Šumskog Požara}{}
+
+Posmatramo šumu kao mrežu ćelija u kojoj se vatra širi korak po korak.
+Svaka ćelija ima stanje koje se mijenja prema jednostavnim pravilima.
+
+% ─────────────────────────────────────────────────────────────────────────
+\section{Stanja ćelija}
+
+Svaka ćelija u matrici \texttt{karta[r][k]} sadrži jedan karakter:
+
+\begin{center}
+\begin{tabular}{@{} c l l @{}}
+    \toprule
+    \textbf{Znak} & \textbf{Stanje} & \textbf{Opis} \\
+    \midrule
+    \texttt{.} & Prazno     & Golo tlo — vatra se ne može širiti \\
+    \texttt{T} & Drvo       & Živo drvo, može se zapaliti \\
+    \texttt{*} & Gori       & Drvo gori ovaj vremenski korak \\
+    \texttt{x} & Izgorjelo  & Pepeo, vatra je završena \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+% ─────────────────────────────────────────────────────────────────────────
+\section{Pravila simulacije}
+
+Na svakom vremenskom koraku primjenjuju se dva pravila:
+
+\begin{enumerate}
+    \item Svaka ćelija koja \textbf{gori} (\texttt{*}) postaje \textbf{izgorjela} (\texttt{x}).
+    \item Svako \textbf{drvo} (\texttt{T}) pored gorućeg susjeda pali se
+          sa vjerovatnoćom \texttt{SIRENJE\%}.
+\end{enumerate}
+
+\subsection{Ključni dio koda}
+
+\begin{lstlisting}
+if (karta[r][k] != GORI) continue;
+
+sljedeca[r][k] = IZGORJELO;
+
+for (int dr = -1; dr <= 1; dr++) {
+    for (int dk = -1; dk <= 1; dk++) {
+        int nr = r + dr;
+        int nk = k + dk;
+        if (karta[nr][nk] == DRVO && rand() % 100 < SIRENJE)
+            sljedeca[nr][nk] = GORI;
+    }
+}
+\end{lstlisting}
+
+\begin{napomena}
+    Važno je ažurirati \texttt{sljedeca}, a čitati iz \texttt{karta}.
+    Ako bismo mijenjali \texttt{karta} direktno, nova vatra bi odmah
+    uticala na susjedne ćelije u \emph{istom} koraku.
+\end{napomena}
+
+% ─────────────────────────────────────────────────────────────────────────
+\section{Zadaci}
+
+\begin{zadatak}{1}
+Postavi \texttt{GUSTOCA = 30}. Kako se ponaša vatra u rijetkoj šumi?
+Postoji li gustoća pri kojoj se vatra ugasi sama od sebe?
+\end{zadatak}
+
+\begin{zadatak}{2}
+Šta se desi ako postaviš \texttt{SIRENJE = 100}? A \texttt{SIRENJE = 0}?
+\end{zadatak}
+
+\begin{zadatak}{3}
+Dodaj horizontalni red \emph{praznih} ćelija koji prolazi cijelom širinom
+mape (npr.\ red 10). Može li vatra preskočiti taj red?
+\end{zadatak}
+
+\end{document}

@@ -1,0 +1,60 @@
+\ProvidesPackage{evan_inspired}[2025/01/01 Evan Chen inspired handout style]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{palatino}
+\RequirePackage{microtype}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{listings}
+\RequirePackage{parskip}
+\RequirePackage{booktabs}
+\RequirePackage{amsmath}
+
+% ── Colors ────────────────────────────────────────────────────────────────
+\definecolor{accent}{RGB}{0, 100, 180}
+\definecolor{codebg}{RGB}{240, 245, 255}
+
+% ── Section headings ──────────────────────────────────────────────────────
+\titleformat{\section}
+    {\large\bfseries\color{accent}}
+    {}
+    {0em}
+    {}
+    [\color{accent!50}\titlerule]
+\titlespacing{\section}{0pt}{1.8ex plus .4ex}{0.8ex}
+
+\titleformat{\subsection}
+    {\normalsize\bfseries\color{accent!80!black}}
+    {}
+    {0em}
+    {}
+\titlespacing{\subsection}{0pt}{1.2ex}{0.4ex}
+
+% ── Header / footer ───────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{gray}\textit{\leftmark}}
+\rhead{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── Code listings ─────────────────────────────────────────────────────────
+\lstset{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{accent},
+    commentstyle=\itshape\color{gray},
+    stringstyle=\color{teal},
+    frame=single,
+    rulecolor=\color{accent!40},
+    backgroundcolor=\color{codebg},
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    xleftmargin=8pt,
+    xrightmargin=8pt,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+}

@@ -1,0 +1,99 @@
+\ProvidesPackage{radionica}[2025/01/01 tcolorbox workshop handout style]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+\RequirePackage[margin=2.2cm, top=2.8cm, bottom=2.8cm]{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{parskip}
+\RequirePackage{booktabs}
+\RequirePackage{fancyhdr}
+\RequirePackage[most, listings]{tcolorbox}
+
+% ── Colors ────────────────────────────────────────────────────────────────
+\definecolor{primary}{RGB}{200, 70, 30}     % narandzasto-crvena (vatra)
+\definecolor{taskbg}{RGB}{255, 248, 242}
+\definecolor{codebg}{RGB}{248, 248, 252}
+\definecolor{notebg}{RGB}{255, 252, 220}
+
+% ── Header / footer ───────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{gray}\textit{\leftmark}}
+\rhead{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── tcolorbox environments ────────────────────────────────────────────────
+
+% Coloured exercise box: \begin{zadatak}{1} ... \end{zadatak}
+\newtcolorbox{zadatak}[1]{
+    enhanced,
+    colback=taskbg,
+    colframe=primary,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=Zadatak #1,
+    attach boxed title to top left={yshift=-2.5mm, xshift=6mm},
+    boxed title style={colback=primary, arc=2pt, boxrule=0pt},
+    arc=4pt,
+    boxrule=0.8pt,
+    top=8pt,
+}
+
+% Code block (no title)
+\newtcblisting{kod}{
+    enhanced,
+    colback=codebg,
+    colframe=gray!35,
+    listing only,
+    listing options={
+        language=C++,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\bfseries\color{primary!85!black},
+        commentstyle=\itshape\color{gray},
+        stringstyle=\color{teal!80!black},
+        showstringspaces=false,
+        tabsize=4,
+        breaklines=true,
+        numbers=left,
+        numberstyle=\tiny\color{gray!60},
+        numbersep=8pt,
+    },
+    arc=4pt,
+    boxrule=0.5pt,
+    top=2pt, bottom=2pt,
+    left=2pt,
+}
+
+% Named code block: \begin{kodbox}{Naslov} ... \end{kodbox}
+\newtcblisting{kodbox}[1]{
+    enhanced,
+    colback=codebg,
+    colframe=primary!50,
+    coltitle=primary!60!black,
+    fonttitle=\bfseries\small,
+    title=#1,
+    listing only,
+    listing options={
+        language=C++,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\bfseries\color{primary!85!black},
+        commentstyle=\itshape\color{gray},
+        stringstyle=\color{teal!80!black},
+        showstringspaces=false,
+        tabsize=4,
+        breaklines=true,
+    },
+    arc=4pt,
+    boxrule=0.5pt,
+}
+
+% Highlighted note
+\newtcolorbox{napomena}{
+    colback=notebg,
+    colframe=orange!50,
+    fonttitle=\bfseries,
+    title=Napomena,
+    arc=3pt,
+    boxrule=0.6pt,
+}

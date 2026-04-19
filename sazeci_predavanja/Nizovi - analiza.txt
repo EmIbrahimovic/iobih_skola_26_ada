@@ -1,0 +1,181 @@
+SAŽETAK PREDAVANJA 7 — Nizovi i Vektori
+========================================
+Datum: 28. mart 2026 | Trajanje: 1h 42m 44s
+Predavač: Edukacijska grupa Ada
+Publika: Talentovani učenici osnovne škole, početnici u programiranju
+
+
+════════════════════════════════════════
+1. TEME I VREMENSKI RASPORED
+════════════════════════════════════════
+
+UVOD U NIZOVE (arrays) — cca. 0:00–15:00 (15 min)
+───────────────────────────────────────────────────
+- Motivacija: zašto su nizovi potrebni (problem upravljanja većim brojem
+  varijabli istog tipa, npr. neprijatelji u igrici)
+- Definicija niza: kolekcija varijabli istog tipa, indeksirane
+- Sintaksa deklaracije:         int mojNiz[5];
+- Indeksiranje od 0 (ne od 1) — naglašeno kao veoma bitno
+- Pristup i dodjela vrijednosti pojedinim elementima:  mojNiz[0] = 30;
+- Pristup putem varijable kao indeksa (int index = 2; mojNiz[index])
+- Kombinacija nizova i for petlje kao ključna prednost
+
+NEDEFINIRANO PONAŠANJE — cca. 15:00–22:00 (7 min)
+───────────────────────────────────────────────────
+- Šta se desi kad pristupamo van granica niza (nasumični ispis, crash)
+- Negativni indeksi — jednako opasni
+- Kontekst: jedan od najvećih sigurnosnih problema u softveru danas
+- Pravilo: indeks uvijek između 0 i (veličina - 1)
+
+UNOS, ISPIS I KOPIRANJE NIZOVA — cca. 22:00–32:00 (10 min)
+────────────────────────────────────────────────────────────
+- Unos niza for petljom (cin >> mojNiz[i])
+- Ispis u normalnom redoslijedu
+- Ispis u obrnutom redoslijedu (for od n-1 do 0)
+- Kopiranje niza ručnom petljom (ne postoji kratka sintaksa)
+
+OGRANIČENJA NIZOVA I MEMORIJA — cca. 32:00–42:00 (10 min)
+────────────────────────────────────────────────────────────
+- Veličina mora biti poznata unaprijed (konstanta)
+- Stack memorija ograničena na ~4–6 MB (unutar funkcije)
+- Rješenje za takmičarsko programiranje: globalne varijable
+- Preporuka predavača:
+    · do 100.000 elemenata  → niz
+    · 100.000 – 100 miliona → vektori
+
+UVOD U VEKTORE — cca. 42:00–1:15:00 (33 min)
+──────────────────────────────────────────────
+- Motivacija: dinamička veličina, nema potrebe da se zna unaprijed
+- Deklaracija:   vector<int> mojVektor;
+- Dodavanje elemenata: push_back()
+- Pristup elementima: isti kao kod niza (mojVektor[0])
+- Upozorenje: ne smije se pristupiti elementu koji nije dodan
+- Korisne metode:
+    · .size()       — trenutna veličina
+    · .empty()      — provjera je li prazan
+    · .pop_back()   — brisanje posljednjeg elementa
+    · .clear()      — brisanje svih elemenata
+- Kopiranje vektora: vector<int> v2 = v1; (zamjenjuje, ne dodaje)
+- Dodavanje elemenata jednog vektora u drugi: ručna for petlja
+
+ZADATAK 2 I WRAP-UP — cca. 1:15:00–1:42:44 (27 min)
+──────────────────────────────────────────────────────
+- Zadatak sa vektorom (unos dok se ne unese 0, analiza u odnosu na zadnji)
+- Pojašnjenje zadaće
+- Pitanja studenata i odgovori
+- Kraj predavanja
+
+
+════════════════════════════════════════
+2. PRIMJERI I ZADACI
+════════════════════════════════════════
+
+PRIMJER 1 — Dodjela i ispis elemenata niza (cca. 0:00–10:00)
+──────────────────────────────────────────────────────────────
+Predavač je uživo pisao i pokretao kod koji dodjeljuje vrijednosti
+elementima niza (30, 8, 10) i ispisuje ih. Pokazao je razliku između
+pisanja konkretnog broja i varijable kao indeksa.
+
+PRIMJER 2 — Nedefinirano ponašanje uživo (cca. 15:00–22:00)
+─────────────────────────────────────────────────────────────
+Predavač je namjerno kreirao niz veličine 2, a zatim pokušao unijeti i
+ispisati 3 elementa — čime je demonstrirao nasumičan ispis i crash.
+Pokazao je i primjer s negativnim indeksima.
+
+PRIMJER 3 — Unos niza i ispis u oba smjera (cca. 22:00–30:00)
+───────────────────────────────────────────────────────────────
+Demonstracija dva ključna šablona za for petlju:
+  · Normalni redoslijed:   for (int i = 0; i < n; i++)
+  · Obrnuti redoslijed:    for (int i = n-1; i >= 0; i--)
+
+ZADATAK 1 — Unos n elemenata i ispis unazad (cca. 30:00–42:00)
+────────────────────────────────────────────────────────────────
+Učenici su samostalno pisali program koji:
+  1. Unese broj n
+  2. Unese n elemenata
+  3. Ispiše ih u obrnutom redoslijedu
+Predavač je pregledao rješenja i ispravio čestu grešku: korištenje
+indeksa od 1 do n umjesto od 0 do n-1.
+
+PRIMJER 4 — Vektori i metode (cca. 42:00–1:10:00)
+────────────────────────────────────────────────────
+Predavač je korak po korak demonstrirao:
+  · Kreiranje vektora, push_back, pristup, izmjena vrijednosti
+  · Razliku između dodavanja i zamjene pri kopiranju
+  · Sve ključne metode (.size, .empty, .pop_back, .clear)
+  · Dodavanje elemenata jednog vektora u drugi petljom
+
+ZADATAK 2 — Unos do nule, analiza u odnosu na zadnji broj (cca. 1:15:00–1:30:00)
+───────────────────────────────────────────────────────────────────────────────────
+Učenici su pisali program koji:
+  1. Unosi brojeve sve dok ne unese 0
+  2. Ispisuje koliko brojeva je manje, a koliko veće od zadnjeg unesenog
+Naglašeno da se mora koristiti vektor jer broj unosa nije poznat unaprijed.
+
+ZADAĆA — Brojanje pojavljivanja (zadana oko 1:35:00)
+─────────────────────────────────────────────────────
+Program koji unosi n i maks, zatim n brojeva, i ispisuje koliko puta
+se svaki broj od 1 do maks pojavio. Primjer ispisa:
+  n=6, maks=10, unos: 3 6 2 2 3 8
+  → 1:0  2:2  3:2  4:0  5:0  6:1  7:0  8:1  9:0  10:0
+
+
+════════════════════════════════════════
+3. ANGAŽOVANJE STUDENATA I INTERAKCIJA
+════════════════════════════════════════
+
+STIL PREDAVANJA
+────────────────
+Predavač je koristio kombinaciju live coding (pisanje i pokretanje koda
+uživo) i direktnih pitanja publici. Zadaci su davani tokom časa i
+studenti su slali rješenja putem chata, koja je predavač pregledao i
+komentarisao pred svima. Pristup je bio topao i podsticajan — greške
+su tretirane konstruktivno, bez osude.
+
+ODZIV STUDENATA
+────────────────
+Studenti su bili aktivni i odzivni tokom cijelog predavanja. Brzo su
+slali rješenja i postavljali relevantna, dobro formulisana pitanja:
+
+  · Hamza Kalajdžija — postavljao tehnička pitanja (povećanje ekrana,
+    razjašnjavanje detalja koda, pitanje o kopiranju vektora)
+  · Vukašin (vukasinvuk100) — pitao da li kopiranje zamjenjuje ili
+    dodaje elemente — što je predavač похvalио kao odlično pitanje
+  · Kosta Car — tražio pojašnjenje zadaće pri kraju časa
+  · Alan Kay (alankayosh) — pitao o potrebi za velikim nizovima
+    u praksi (relevantno i zrelo pitanje za uzrast)
+  · Više učesnika — prijavljivalo prisutnost, javljalo se za ekran
+
+INTERAKCIJA — PROCJENA VREMENA
+───────────────────────────────
+  · Provjera prisutnosti / tehničke napomene:    cca.  5 min
+  · Pitanja i odgovori tokom objašnjavanja:      cca. 12 min
+  · Pregled i komentarisanje rješenja studenata: cca. 15 min
+  · Pojašnjenje zadaće i završna pitanja:        cca. 10 min
+  ─────────────────────────────────────────────────────────
+  Ukupno interakcija sa studentima:              cca. 42 min
+                                                (~41% časa)
+
+OPŠTA NAPOMENA
+───────────────
+Studenti su za ovaj uzrast (osnovna škola) pokazali iznenađujuće visok
+nivo angažovanosti i razumijevanja. Postavljana pitanja su bila
+suštinska i pokazuju da prate gradivo aktivno, a ne pasivno.
+Predavač je efikasno balansirao između teorije, live coding-a i
+samostalnog rada studenata.
+
+
+════════════════════════════════════════
+4. ŠABLONI KOJE STUDENTI TREBAJU ZNATI
+════════════════════════════════════════
+(Korisno za pripremu vašeg predavanja)
+
+  · Deklaracija niza:       int niz[MAX];
+  · Unos niza:              for (int i = 0; i < n; i++) cin >> niz[i];
+  · Ispis unazad:           for (int i = n-1; i >= 0; i--) cout << niz[i];
+  · Kopiranje niza:         ručna petlja, element po element
+  · Globalni niz:           deklaracija van main() za veće veličine
+  · Vektor — deklaracija:   vector<int> v;
+  · Vektor — dodavanje:     v.push_back(x);
+  · Vektor — veličina:      v.size()
+  · Vektor — kopiranje:     vector<int> v2 = v1;  // zamjenjuje sve

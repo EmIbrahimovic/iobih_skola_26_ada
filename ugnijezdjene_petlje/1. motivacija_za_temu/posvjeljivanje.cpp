@@ -30,13 +30,13 @@ int main() {
 
     // Ucitavamo sliku
     int sirina, visina, broj_kanala;
-    unsigned char* slika = stbi_load("./nested_for_loops/1. motivacija_za_temu/slike/slika.png", &sirina, &visina, &broj_kanala, 0);
+    unsigned char* slika = stbi_load("./1. motivacija_za_temu/slike/slika2.png", &sirina, &visina, &broj_kanala, 0);
 
 
 
     // Provjeravamo da li smo uspjesno ucitali sliku
     if (slika == NULL) {
-        cout << "Nismo mogli ucitati image.png" << endl;
+        cout << "Nismo mogli ucitati slika.png" << endl;
         return 1;
     }
 
@@ -51,7 +51,6 @@ int main() {
 
         // Zatim unutar svakog reda prolazimo kroz svaku kolonu
         for (int kolona = 0; kolona < sirina; kolona++) {
-            
             
 
             // Racunamo redni broj piksela
@@ -73,8 +72,8 @@ int main() {
 
 
     // Sacuvamo promijenjenu sliku
-    stbi_write_png("./nested_for_loops/1. motivacija_za_temu/slike/slika_svijetla.png", sirina, visina, broj_kanala, slika, sirina * broj_kanala);
-    cout << "Slika spasena u image_bright.png" << endl;
+    stbi_write_png("./1. motivacija_za_temu/slike/slika_svijetla.png", sirina, visina, broj_kanala, slika, sirina * broj_kanala);
+    cout << "Slika spasena u slika_svijetla.png" << endl;
 
 
 

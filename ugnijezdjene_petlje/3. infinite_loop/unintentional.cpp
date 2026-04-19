@@ -33,11 +33,19 @@ int main() {
 
 
     // MARK: odbrojavanje
-    int n = 10;
+    
     /*
     Napisati program koji odbrojava vrijeme od n sekundi
-    Ili: adaptirati da samo brojimo od n.
+    n
+    n - 1
+    n - 2
+    ...
+    3
+    2
+    1
+    Gotovo
     */
+    int n = 10;
     for (int i = n; i >= 0; i++) {
         cout << "Preostalo je " << i << " sekundi." << endl;
         sleep(1);

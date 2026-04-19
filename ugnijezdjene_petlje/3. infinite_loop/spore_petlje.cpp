@@ -13,8 +13,8 @@ using namespace std;
         auto _s = (_end - _start) * 1.0 / CLOCKS_PER_SEC; \
         std::cout << label << ": " << _s << " s\n"; \
     }
-// #define UGN
-#define PITAGORA
+#define UGN
+// #define PITAGORA
 
 int main() {
 
@@ -43,36 +43,35 @@ int main() {
 
     // MARK: Vrijeme
     #ifdef VRIJEME
+
+
     float start_time = clock();
 
 
 
 
     // 10^6 = milion koraka
-    for (int i = 0; i < 1000000; i++) {}
+    for (int i = 0; i < 1000000; i++) {
+        // nista
+    }
     cout << "Gotovo" << endl;
     cout << "Prvoj petlji je trebalo: " << (clock() - start_time)/CLOCKS_PER_SEC << " s" << endl;
 
-
     start_time = clock();
-
-
 
     // 10^9 koraka = milijarda koraka
     for (long long i = 0; i < 1000000000; i++) {}
     cout << "Gotovo" << endl;
     cout << "Drugoj petlji je trebalo: " << (clock() - start_time)/CLOCKS_PER_SEC << " s" << endl;
 
-
-
-
     start_time = clock();
-
 
     // 10^10 koraka = 10 milijardi koraka
     for (long long i = 0; i < (long long)10000000000; i++) {}
     cout << "Gotovo" << endl;
     cout << "Trecoj petlji je trebalo: " << (clock() - start_time)/CLOCKS_PER_SEC << " s" << endl;
+
+
 
     #endif
 
@@ -113,12 +112,26 @@ int main() {
     // MARK: Ugnijezdjena
     float start_time = clock(); 
 
+
+
+
     int n = 100000; // 10^5, dakle 100 hiljada
+    long long broj_izvrsavanja = 0;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {}
+        for (int j = 0; j < n; j++) {
+            broj_izvrsavanja++;
+        }
     }
+    cout << broj_izvrsavanja << endl;
+    cout << (long long)100000*100000 << endl;
+
     cout << "Gotovo" << endl;
-    cout << "Ugnijezdjenoj petlji je trebalo: " << (clock() - start_time)/CLOCKS_PER_SEC << " s" << endl;
+    cout << "Ugnijezdjenoj petlji je trebalo: " 
+    << (clock() - start_time)/CLOCKS_PER_SEC 
+    << " s" << endl;
+
+
+
 
     #endif
 

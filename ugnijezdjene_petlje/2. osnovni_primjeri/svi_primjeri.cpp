@@ -15,8 +15,29 @@ int main() {
 
     // MARK: Tablica mnozenja
     /*
+    10x10
+    a * b = ab
+    a -> 1 2 3 4 .. 10
+    b -> 1 2 3 4 .. 10
+
+
     Tablica mnozenja
     */
+   // 4 * 1
+   // 4 * 2
+   // 4 * 3 
+//    4 * 4
+// ... 
+//    4 * 10
+    cout << "====================================" << endl;
+    cout << "==== Tablica mnozenja za broj " << 4 << " ===" << endl;
+    cout << "====================================" << endl;
+    for (int b = 1; b <= 10; b++) {
+        cout << 4 << " * " << b << " = " << 4*b << endl;
+    }
+
+
+
     for (int a = 1; a <= 10; a++) {
         
         cout << endl;
@@ -38,9 +59,12 @@ int main() {
     /*
     Koordinate u tabeli
     */
-    int n = 5, m = 7;
+    int n = 3;
+    int suma = 0;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
+
+        for (int j = i; j < n; j++) {
+
             cout << "(" << i << ", " << j << ") ";
         }
         cout << endl;
@@ -86,11 +110,19 @@ int main() {
     Zapisuje se ovako {a, b}.
     Posto nas redoslijed brojeva ne zanima, par {a, b} je jednak paru {b, a}.
     */
+    /*
+    n = 3
+    -> [0, 1, 2]
+    {0, 0}, {0, 1}, {0, 2}, {1, 1}, {1, 2}, {2, 2}
+
+    */
+
     int n = 5;
     for (int i = 0; i < n; i++) {
         for (int j = i; j < n; j++) {
             cout << "{" << i << ", " << j << "}, ";
         }
+        cout << endl;
     }
     
 
@@ -102,7 +134,7 @@ int main() {
 
 
 
-    // MARK: Intervali
+    // MARK: Duzi
     /*
     Data je linija na kojoj imamo n tacaka. Svaka tacka je oznacena brojem od 0 do n - 1, redom.
     0   1   2   3   4
@@ -117,22 +149,30 @@ int main() {
     3) pocevsi od najkracih duzi
     */
     int n = 5;
-    int broj_intervala = 0;
-    for (int l = 0; l < n; l++) {
-        for (int r = l + 1; r < n; r++) {
-            cout << "" << l << " - " << r << endl;
-            broj_intervala++;
+    for (int l = 0; l <= n - 2; l++) {
+        for (int d = l + 1; d <= n - 1; d++) {
+            cout << l << " - " << d << endl;
         }
+        cout << endl;
     }
-    cout << "Broj intervala: " << broj_intervala << endl;
 
 
-    for (int d = 1; d < n; d++) {
-        for (int l = 0; l < n - d; l++) {
-            int r = n - l;;
-            cout << l << " - " << r << endl;
-        }
-    }
+
+
+
+    // cout << "Broj intervala: " << broj_intervala << endl;
+
+
+
+
+
+
+    // for (int d = 1; d < n; d++) {
+    //     for (int l = 0; l < n - d; l++) {
+    //         int r = n - l;
+    //         cout << l << " - " << r << endl;
+    //     }
+    // }
 
 
     #endif
